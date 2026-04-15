@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>с днём рождения</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      background:
+        radial-gradient(circle at top, rgba(255, 100, 160, 0.25), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(100, 180, 255, 0.20), transparent 25%),
+        linear-gradient(135deg, #0f1020, #1b1230, #29143f);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      animation: fadeUp 1s ease;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      font-size: 14px;
+      margin-bottom: 18px;
+      animation: pulse 2.5s infinite;
+    }
+
+    h1 {
+      font-size: clamp(30px, 6vw, 58px);
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+
+    .name {
+      display: inline-block;
+      color: #ffd166;
+      text-shadow: 0 0 18px rgba(255, 209, 102, 0.35);
+    }
+
+    .subtitle {
+      font-size: clamp(16px, 2.8vw, 22px);
+      opacity: 0.92;
+      margin-bottom: 22px;
+    }
+
+    .photo-box {
+      margin: 22px auto 22px;
+      width: min(78vw, 290px);
+      height: min(78vw, 290px);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.18);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      transform: rotate(-2deg);
+      animation: floaty 4s ease-in-out infinite;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .text {
+      max-width: 640px;
+      margin: 0 auto 24px;
+      font-size: clamp(15px, 2.7vw, 19px);
+      line-height: 1.6;
+      opacity: 0.97;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s transform ease, 0.2s opacity ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .main-btn {
+      background: #ffd166;
+      color: #1d1631;
+    }
+
+    .ghost-btn {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .hidden-message {
+      margin-top: 20px;
+      font-size: clamp(18px, 3vw, 24px);
+      min-height: 34px;
+      color: #ffe8a3;
+      text-shadow: 0 0 14px rgba(255, 232, 163, 0.25);
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 16px;
+      opacity: 0.9;
+      animation: fall linear forwards;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .footer {
+      margin-top: 22px;
+      opacity: 0.65;
+      font-size: 13px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: rotate(-2deg) translateY(0px); }
+      50% { transform: rotate(1deg) translateY(-8px); }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="badge">особый день</div>
+
+      <h1>с днём рождения, <span class="name" id="friendName">макс</span> 🎉</h1>
+
+      <div class="subtitle">сегодня официальный день, когда ты стал ещё лучше</div>
+
+      <div class="photo-box">
+        <img src="friend.jpg" alt="фото друга">
+      </div>
+
+      <div class="text">
+        спасибо что ты наш друг, желаем много денег,щастя,хороших оценок и хорошего настроения.
+      </div>
+
+      <div class="buttons">
+        <button class="main-btn" onclick="startParty()">нажми сюда</button>
+        <button class="ghost-btn" onclick="showSecret()">секретное сообщение</button>
+      </div>
+
+      <div class="hidden-message" id="message"></div>
+
+      <div class="footer">сделано специально для тебя</div>
+    </div>
+  </div>
+
+  <audio id="music" src="music.mp3"></audio>
+
+  <script>
+    function startParty() {
+      const msg = document.getElementById("message");
+      const music = document.getElementById("music");
+
+      msg.textContent = "желаем много щастя и хороших оценок в школе";
+
+      music.currentTime = 0;
+      music.play().catch(() => {
+        msg.textContent = "нажми ещё раз, если браузер не дал включить музыку с первого раза";
+      });
+
+      launchConfetti(80);
+    }
+
+    function showSecret() {
+      const msg = document.getElementById("message");
+      msg.textContent = "ладно, если без рофла то мы рады за др";
+      launchConfetti(30);
+    }
+
+    function launchConfetti(count) {
+      const colors = ["#ffd166", "#ff5d8f", "#7cc6fe", "#7ef29a", "#ffffff"];
+
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(piece);
+
+        setTimeout(() => {
+          piece.remove();
+        }, 4500);
+      }
+    }
+  </script>
+</body>
+  </html>
