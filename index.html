@@ -158,7 +158,7 @@
     .photo-box {
       width: min(78vw, 290px);
       height: min(78vw, 290px);
-      margin: 0 auto 34px;
+      margin: 0 auto 18px;
       border-radius: 28px;
       overflow: hidden;
       border: 6px solid #ffffff;
@@ -172,6 +172,14 @@
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .photo-label {
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-size: clamp(18px, 2.4vw, 26px);
+      font-weight: 700;
+      color: #8f98f0;
     }
 
     .cake-wrap {
@@ -229,35 +237,39 @@
       height: 22px;
       background: #fffdf8;
       border-radius: 20px;
+      z-index: 4;
     }
 
     .candles {
       position: absolute;
-      bottom: 173px;
+      bottom: 145px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       gap: 18px;
+      z-index: 5;
     }
 
     .candle {
       width: 18px;
-      height: 54px;
+      height: 50px;
       background: #8f98f0;
       border-radius: 5px;
       position: relative;
+      box-shadow: 0 2px 0 rgba(255,255,255,0.35) inset;
     }
 
     .flame {
       position: absolute;
-      top: -22px;
+      top: -16px;
       left: 50%;
       transform: translateX(-50%);
-      width: 18px;
-      height: 24px;
+      width: 16px;
+      height: 20px;
       background: #f4c51b;
       border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
       animation: flicker 1.1s infinite;
+      transform-origin: center bottom;
     }
 
     .gift {
@@ -393,8 +405,14 @@
     }
 
     @keyframes flicker {
-      0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
-      50% { transform: translateX(-50%) scale(1.12); opacity: 0.88; }
+      0%, 100% {
+        transform: translateX(-50%) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(-50%) scale(1.06) rotate(2deg);
+        opacity: 0.9;
+      }
     }
 
     @keyframes confettiFall {
@@ -436,6 +454,22 @@
         border-right-width: 18px;
         border-top-width: 42px;
       }
+
+      .candles {
+        bottom: 143px;
+        gap: 12px;
+      }
+
+      .candle {
+        width: 15px;
+        height: 44px;
+      }
+
+      .flame {
+        width: 14px;
+        height: 18px;
+        top: -14px;
+      }
     }
   </style>
 </head>
@@ -473,6 +507,8 @@
         <div class="photo-box">
           <img src="friend.jpg" alt="фото друга">
         </div>
+
+        <div class="photo-label">с др тебя, бро 🎉</div>
 
         <div class="cake-wrap">
           <div class="gift gift1"></div>
@@ -522,8 +558,16 @@
       }
     }
 
+    function scheduleConfetti() {
+      const delay = Math.random() * 2000 + 5000; /* от 5 до 7 секунд */
+      setTimeout(() => {
+        createConfetti();
+        scheduleConfetti();
+      }, delay);
+    }
+
     createConfetti();
-    setInterval(createConfetti, 4500);
+    scheduleConfetti();
   </script>
 </body>
   </html>
